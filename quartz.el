@@ -3,18 +3,20 @@
 
 ;; Copyright (C) 2016 Isaac Williams <isaac@thewilliams.ws>
 
+(defmacro start-process-with-output-to-temp-buffer (buffer-name file-name)
+  `(with-output-to-temp-buffer ,buffer-name
+     (start-process-shell-command "crystal" ,buffer-name (format "crystal %s" (expand-file-name ,file-name)))))
+
 ;;;###autoload
 (defun quartz:run-buffer ()
   (interactive)
-  (with-output-to-temp-buffer "*crystal*"
-    (start-process-shell-command "crystal-process" "*crystal*" (format "crystal %s" (expand-file-name (buffer-file-name))))))
+  (start-process-with-output-to-temp-buffer "*crystal*" (buffer-file-name)))
 
 (defun quartz:run-file (filename)
   (interactive "Fcrystal: ")
   (when (not (file-exists-p filename))
     (error "The file doesn't exist"))
-  (with-output-to-temp-buffer "*crystal*"
-    (start-process-shell-command "crystal-process" "*crystal*" (format "crystal %s" (expand-file-name filename)))))
+  (start-process-with-output-to-temp-buffer "*crystal*" filename))
 
 (provide 'quartz)
 ;;; quartz.el ends here
