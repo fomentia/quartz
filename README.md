@@ -10,7 +10,7 @@ Features:
 
 ### Installation
 
-Oh don't do it.
+Don't do it.
 
 But if you really want to, clone the repo into your Downloads folder and execute `M-x package-install-file [RET] ~/Downloads/quartz/quartz.el`.
 
